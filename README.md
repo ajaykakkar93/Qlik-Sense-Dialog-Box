@@ -9,3 +9,4 @@ Feature:
 <a href="https://youtu.be/broVBV2OieE" target="_blank">
   Check out how it works .
 </a>
+<img src="./popup.PNG" alt="1st Version" style="width: 20%;">
