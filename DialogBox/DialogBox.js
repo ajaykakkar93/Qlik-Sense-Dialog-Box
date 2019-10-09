@@ -89,6 +89,34 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 				settings: {
 					uses: "settings",
 					items: {
+						DialogSettings:{
+							label:"Dialog Settings",
+							type:"items",
+							items:{
+								ShowDialogTitle: {
+									type: "boolean",
+									label: "Show Dialog Title",
+									ref: "ShowDialogTitle",
+									defaultValue: true
+								},
+								ShowExport: {
+									type: "boolean",
+									label: "Show Export Button",
+									ref: "ShowExport",
+									defaultValue: true
+								}
+								/*
+								ShowClose: {
+									type: "boolean",
+									label: "Show Close Button",
+									ref: "ShowClose",
+									defaultValue: true
+								}
+								style="'+(ShowClose?'':'display:none;')+'"
+								*/
+							}
+						}
+						
 					}
 				}
 			}
@@ -110,12 +138,15 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 				sheetId = qlik.navigation.getCurrentSheetId().sheetId,
 				layoutid = layout.qInfo.qId,
 				btn = '<div class="lui-buttongroup">',
-				htm = '';
+				htm = '',
+				ShowDialogTitle = layout.ShowDialogTitle,
+				ShowExport = layout.ShowExport,
+				ShowClose = layout.ShowClose;
 			// add html
 			htm += '<div id="comment-diloag-' + layoutid + '" style="display: none;">';
 			htm += '<div class="lui-dialog dialog-content"  style="">';
-			htm += '<div class="lui-dialog__header">';
-			htm += '  <div class="lui-dialog__title" id="Dialog-Title"></div>';
+			htm += '<div class="lui-dialog__header" style="'+(ShowDialogTitle?'':'display:none;')+'">';
+			htm += '  <div class="lui-dialog__title" id="Dialog-Title" ></div>';
 			htm += '</div>';
 			//lui-dialog__body
 			htm += '<div class="lui-dialog__body2" id="cont-' + layoutid + '">';
@@ -123,8 +154,8 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 			htm += '<div id="para-' + layoutid + '" style="height: 100px;overflow: scroll;padding: 5px;margin: 5px;border: 1px solid #ccc;"></div>';
 			htm += '<div class="lui-dialog__footer">';
 			htm += '<a target="_blank" id="download_file" >Click here to download your data file.</a>';
-			htm += '<button id="Export" class="lui-button  lui-dialog__button export"><i class="lui-icon  lui-icon--export" style="margin-right: 2px;"></i>Export</button>';
-			htm += '<button class="lui-button  lui-dialog__button cancel">Close</button>';
+			htm += '<button id="Export" class="lui-button  lui-dialog__button export" style="'+(ShowExport?'':'display:none;')+'"><i class="lui-icon  lui-icon--export" style="margin-right: 2px;"></i>Export</button>';
+			htm += '<button class="lui-button  lui-dialog__button cancel" >Close</button>';
 			htm += '</div>';
 			htm += '</div>';
 			htm += '</div>';
@@ -151,6 +182,7 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 				//$('#comment-diloag-' + layoutid).remove();
 				//qlik.resize("comment-diloag-" + layoutid);
 			});
+
 			$(".view_dialog").click(function () {
 				var obj = $(this).attr("obj-id");
 				var title = $(this).attr("Dialog-Title");
@@ -194,6 +226,7 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 						});
 					});
 				});
+				
 			});
 			//needed for export
 			return qlik.Promise.resolve();
