@@ -159,13 +159,16 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 			htm += '</div>';
 			htm += '</div>';
 			htm += '</div>';
-			if ($('#comment-diloag-' + layoutid).length == 0) {
+			//if ($('#comment-diloag-' + layoutid).length == 0) {
+			if (!document.getElementById('comment-diloag-'+layoutid)) {
 				$('#grid-wrap').append(htm);
 				$(function () {
 					//{ containment: ".qv-panel-content" }
 					$("#comment-diloag-" + layoutid).draggable({ handle: "div.lui-dialog__header" });
 				});
 			}
+			
+			
 			$.each(layout.listItems, function (k, v) {
 				var Dialogtitle = v.dialogtitle;
 				var ButtonText = v.ButtonText;
