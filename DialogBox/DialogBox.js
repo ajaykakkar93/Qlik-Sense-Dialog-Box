@@ -155,7 +155,7 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 			htm += '<div class="lui-dialog__footer">';
 			htm += '<a target="_blank" id="download_file" >Click here to download your data file.</a>';
 			htm += '<button id="Export" class="lui-button  lui-dialog__button export" style="'+(ShowExport?'':'display:none;')+'"><i class="lui-icon  lui-icon--export" style="margin-right: 2px;"></i>Export</button>';
-			htm += '<button class="lui-button  lui-dialog__button cancel" >Close</button>';
+			htm += '<button class="lui-button  lui-dialog__button cancel_'+layoutid+'" >Close</button>';
 			htm += '</div>';
 			htm += '</div>';
 			htm += '</div>';
@@ -176,17 +176,17 @@ define(["qlik", "./getMasterItems", "css!./style.css"], function (qlik, getMaste
 				var width = v.dialogwidth;
 				var height = v.Dialogheight;
 				var path = k;
-				btn += '<button path="' + path + '" class="lui-button lui-dialog__button view_dialog" Dialog-Title="' + Dialogtitle + '" Dialog-width="' + width + '" Dialog-height="' + height + '" obj-id="' + objid + '" view-id="' + layoutid + '">' + ButtonText + '</button>';
+				btn += '<button path="' + path + '" class="lui-button lui-dialog__button view_dialog_'+layoutid+'" Dialog-Title="' + Dialogtitle + '" Dialog-width="' + width + '" Dialog-height="' + height + '" obj-id="' + objid + '" view-id="' + layoutid + '">' + ButtonText + '</button>';
 			});
 			btn += '</div>';
 			$element.html(btn);
-			$(".cancel").click(function () {
+			$(".cancel_"+layoutid).click(function () {
 				$('#comment-diloag-' + layoutid).css("display", "none");
 				//$('#comment-diloag-' + layoutid).remove();
 				//qlik.resize("comment-diloag-" + layoutid);
 			});
 
-			$(".view_dialog").click(function () {
+			$(".view_dialog_"+layoutid).click(function () {
 				var obj = $(this).attr("obj-id");
 				var title = $(this).attr("Dialog-Title");
 				var width = $(this).attr("Dialog-width");
